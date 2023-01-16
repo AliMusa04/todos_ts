@@ -11,31 +11,37 @@ const ToDo = () => {
 
   const dispatch = useDispatch();
 
-  // var changedLists = [];
+  interface IChangedArray {
+    id: number;
+    title: string;
+    completed: boolean;
+  }
 
-  // switch (listActive) {
-  //   case "all":
-  //     changedLists = lists;
-  //     break;
-  //   case "active":
-  //     changedLists = lists.filter(
-  //       (item: { completed: boolean }) => item.completed === false
-  //     );
-  //     break;
-  //   case "completed":
-  //     changedLists = lists.filter(
-  //       (item: { completed: boolean }) => item.completed === true
-  //     );
-  //     break;
-  //   default:
-  //     break;
-  // }
+  var changedLists: IChangedArray[] = [];
+
+  switch (listActive) {
+    case "all":
+      changedLists = lists;
+      break;
+    case "active":
+      changedLists = lists.filter(
+        (item: { completed: boolean }) => item.completed === false
+      );
+      break;
+    case "completed":
+      changedLists = lists.filter(
+        (item: { completed: boolean }) => item.completed === true
+      );
+      break;
+    default:
+      break;
+  }
 
   return (
     <>
       <ul className="todo-list">
-        {lists &&
-          lists.map(
+        {changedLists &&
+          changedLists.map(
             (item: { id: number; title: string; completed: boolean }) => {
               return (
                 <li key={item.id} className={item.completed ? "completed" : ""}>
